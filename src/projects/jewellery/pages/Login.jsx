@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Input from "../components/Input";
-import { Terminal } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Login = ({ set }) => {
   const usernameRef = useRef(null);
@@ -58,7 +58,7 @@ const Login = ({ set }) => {
   };
 
   const baseBtnClass =
-    "p-3 w-full text-center font-medium md:text-xl ext-[15px] text-white bg-blue-500 hover:bg-black rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 mt-3 transition-all duration-150";
+    "p-3 w-full text-center font-medium md:text-xl text-[15px] bg-black text-white rounded-md cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 mt-3 transition-all duration-150";
 
   return (
     <>
@@ -79,7 +79,11 @@ const Login = ({ set }) => {
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handlesubmit}>
+          <form
+            className="space-y-6"
+            onSubmit={handlesubmit}
+            autoComplete="off"
+          >
             <div className="space-y-4">
               <div className="relative">
                 <Input
@@ -90,10 +94,11 @@ const Login = ({ set }) => {
                   id="username"
                   inputRef={usernameRef}
                   onKeyDown={(e) => handleKeyDown(e, 0)}
+                  autoComplete="new-username"
                 />
 
                 {/* Password Input with eye button inside input field just like other fields */}
-                <div className="relative ">
+                <div className="relative">
                   <Input
                     label="Password"
                     inputtype={show ? "text" : "password"}
@@ -103,13 +108,14 @@ const Login = ({ set }) => {
                     inputRef={passwordRef}
                     onKeyDown={(e) => handleKeyDown(e, 1)}
                     classname="pr-10"
+                    autoComplete="new-password"
                   />
                   <button
                     type="button"
                     onClick={() => setShow((prev) => !prev)}
                     tabIndex={-1}
                     className="text-center absolute right-3 top-1/2 transform -translate-y-1/2 text-xl focus:outline-none"
-                    noTailwind={show ? "Hide password" : "Show password"}
+                    aria-label={show ? "Hide password" : "Show password"}
                   >
                     {show ? "🙈" : "👁"}
                   </button>
@@ -117,12 +123,13 @@ const Login = ({ set }) => {
 
                 <Input
                   label="Confirm Password"
-                  inputtype="password"
+                  inputtype={show ? "text" : "password"}
                   inputplaceholder=". . . . . . . ."
                   isrequird={true}
                   id="Cpassword"
                   inputRef={cpasswordRef}
                   onKeyDown={(e) => handleKeyDown(e, 2)}
+                  autoComplete="new-password"
                 />
 
                 <Input
@@ -133,18 +140,21 @@ const Login = ({ set }) => {
                   id="org"
                   inputRef={orgRef}
                   onKeyDown={(e) => handleKeyDown(e, 3)}
+                  autoComplete="organization"
                 />
                 <Input
-                  label="Tax No / GSt No"
-                  inputtype="number"
+                  label="Tax No / GST No"
+                  inputtype="text"
                   inputplaceholder="Enter tax no / GST no"
                   isrequird={true}
                   id="tax-GSTno"
                   inputRef={taxGSTRef}
                   onKeyDown={(e) => handleKeyDown(e, 4)}
+                  autoComplete="off"
                 />
                 <div>
-                  <button
+                  <Button
+                    variant="ghost"
                     ref={submitBtnRef}
                     type="submit"
                     tabIndex={0}
@@ -152,7 +162,7 @@ const Login = ({ set }) => {
                     onKeyDown={handleBtnKeyDown}
                   >
                     Create Account
-                  </button>
+                  </Button>
                 </div>
               </div>
             </div>
